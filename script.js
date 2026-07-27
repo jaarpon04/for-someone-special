@@ -220,7 +220,7 @@ function typeWriter(){
 
         i++;
 
-        setTimeout(typeWriter,35);
+        setTimeout(typeWriter,55);
 
     }
 
