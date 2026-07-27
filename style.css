@@ -1,0 +1,794 @@
+/* ===================================
+   GLOBAL
+=================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:linear-gradient(160deg,#12001e,#22003b,#36004d);
+
+    color:white;
+
+    overflow-x:hidden;
+
+    min-height:100vh;
+
+}
+
+/* ===================================
+   LOADING
+=================================== */
+
+#loader{
+
+    position:fixed;
+
+    inset:0;
+
+    background:#12001e;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:99999;
+
+}
+
+.loader-heart{
+
+    font-size:90px;
+
+    animation:heartbeat 1.2s infinite;
+
+}
+
+#loader h1{
+
+    margin:20px 0;
+
+    font-size:28px;
+
+}
+
+.loading-bar{
+
+    width:280px;
+
+    height:8px;
+
+    background:rgba(255,255,255,.15);
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+}
+
+#loadingFill{
+
+    width:0;
+
+    height:100%;
+
+    background:#ff5fa2;
+
+}
+
+/* ===================================
+   BACKGROUND
+=================================== */
+
+#stars,
+#hearts,
+#petals{
+
+    position:fixed;
+
+    inset:0;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+}
+
+#stars{
+
+    z-index:-3;
+
+}
+
+#hearts{
+
+    z-index:-2;
+
+}
+
+#petals{
+
+    z-index:-1;
+
+}
+
+/* ===================================
+   HERO
+=================================== */
+
+section{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    padding:50px 20px;
+
+}
+
+.glass{
+
+    width:750px;
+
+    max-width:95%;
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:30px;
+
+    padding:50px;
+
+    text-align:center;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.4);
+
+}
+
+.glass h2{
+
+    font-size:28px;
+
+    font-weight:300;
+
+}
+
+.glass h1{
+
+    font-size:65px;
+
+    margin:20px 0;
+
+    font-family:'Great Vibes',cursive;
+
+}
+
+.glass p{
+
+    font-size:22px;
+
+    opacity:.9;
+
+    margin-bottom:35px;
+
+}
+
+/* ===================================
+   BUTTONS
+=================================== */
+
+button{
+
+    padding:16px 40px;
+
+    border:none;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    color:white;
+
+    background:linear-gradient(45deg,#ff4f9d,#ff84b7);
+
+    transition:.35s;
+
+}
+
+button:hover{
+
+    transform:translateY(-5px) scale(1.05);
+
+    box-shadow:0 12px 25px rgba(255,70,150,.45);
+
+}
+
+/* ===================================
+   MUSIC BUTTON
+=================================== */
+
+#musicBtn{
+
+    position:fixed;
+
+    top:20px;
+
+    right:20px;
+
+    width:60px;
+
+    height:60px;
+
+    border-radius:50%;
+
+    z-index:999;
+
+}
+
+/* ===================================
+   ENVELOPE
+=================================== */
+
+#envelope{
+
+    width:420px;
+
+    height:270px;
+
+    position:relative;
+
+    margin-top:50px;
+
+    cursor:pointer;
+
+}
+
+.front{
+
+    position:absolute;
+
+    width:100%;
+
+    height:100%;
+
+    background:#ff5e93;
+
+    border-radius:12px;
+
+    z-index:2;
+
+}
+
+.flap{
+
+    position:absolute;
+
+    width:100%;
+
+    height:55%;
+
+    background:#ff82ae;
+
+    clip-path:polygon(0 0,100% 0,50% 100%);
+
+    transform-origin:top;
+
+    transition:1.2s;
+
+    z-index:4;
+
+    backface-visibility:hidden;
+
+}
+
+.letter{
+
+    position:absolute;
+
+    left:20px;
+
+    right:20px;
+
+    bottom:15px;
+
+    height:220px;
+
+    transition:1.3s;
+
+    z-index:1;
+
+}
+
+.paper{
+
+    width:100%;
+
+    height:100%;
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:30px;
+
+    color:#333;
+
+    overflow:auto;
+
+}
+
+.paper h2{
+
+    color:#ff4f9d;
+
+    margin-bottom:20px;
+
+}
+
+#typingText{
+
+    line-height:1.8;
+
+}
+
+#envelope.open .flap{
+
+    transform:rotateX(180deg);
+
+}
+
+#envelope.open .letter{
+
+    z-index:3;
+
+    transform:translateY(-220px);
+
+}
+
+.clickText{
+
+    margin-top:35px;
+
+    animation:bounce 2s infinite;
+
+}
+
+/* ===================================
+   REASONS
+=================================== */
+
+.reason-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:25px;
+
+    width:100%;
+
+    max-width:1100px;
+
+    margin-top:50px;
+
+}
+
+.reason{
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+
+    border-radius:20px;
+
+    padding:30px;
+
+    text-align:center;
+
+    transition:.4s;
+
+    font-size:19px;
+
+}
+
+.reason:hover{
+
+    transform:translateY(-10px);
+
+}
+
+/* ===================================
+   GALLERY
+=================================== */
+
+.gallery-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:25px;
+
+    margin-top:50px;
+
+    width:100%;
+
+    max-width:1100px;
+
+}
+
+.placeholder{
+
+    height:340px;
+
+    border:3px dashed rgba(255,255,255,.4);
+
+    border-radius:20px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    background:rgba(255,255,255,.08);
+
+    font-size:60px;
+
+}
+
+.placeholder p{
+
+    margin-top:20px;
+
+    font-size:20px;
+
+}
+
+/* ===================================
+   QUESTION
+=================================== */
+
+.buttons{
+
+    display:flex;
+
+    gap:25px;
+
+    margin-top:40px;
+
+    flex-wrap:wrap;
+
+}
+
+/* ===================================
+   CELEBRATION
+=================================== */
+
+#celebration{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.92);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-direction:column;
+
+    text-align:center;
+
+    z-index:9999;
+
+}
+
+#celebration h1{
+
+    font-size:90px;
+
+}
+
+#celebration h2{
+
+    margin:20px 0;
+
+}
+
+.celebrationGif{
+
+    width:220px;
+
+    max-width:70vw;
+
+    border-radius:20px;
+
+    margin:15px 0;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.5);
+
+}
+
+#celebration button{
+
+    margin-top:25px;
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+
+#celebration.hidden{
+
+    display:none;
+
+}
+
+/* ===================================
+   ANIMATIONS
+=================================== */
+
+@keyframes heartbeat{
+
+0%,100%{
+
+transform:scale(1);
+
+}
+
+50%{
+
+transform:scale(1.15);
+
+}
+
+}
+
+@keyframes bounce{
+
+50%{
+
+transform:translateY(-8px);
+
+}
+
+}
+
+/* ===================================
+   MOBILE
+=================================== */
+
+@media(max-width:768px){
+
+.glass h1{
+
+font-size:46px;
+
+}
+
+.glass{
+
+padding:35px;
+
+}
+
+#envelope{
+
+width:320px;
+
+height:220px;
+
+}
+
+.letter{
+
+height:170px;
+
+}
+
+button{
+
+width:100%;
+
+}
+
+.buttons{
+
+flex-direction:column;
+
+width:100%;
+
+}
+
+}
+/* ===========================
+   Aurora Background
+=========================== */
+
+#aurora{
+
+    position:fixed;
+    inset:0;
+    z-index:-5;
+    overflow:hidden;
+    
+    }
+    
+    #aurora::before{
+    
+    content:"";
+    
+    position:absolute;
+    
+    width:180%;
+    
+    height:180%;
+    
+    left:-40%;
+    
+    top:-40%;
+    
+    background:
+    
+    radial-gradient(circle,#ff4f9d55 0%,transparent 30%),
+    radial-gradient(circle,#6f6bff55 0%,transparent 35%),
+    radial-gradient(circle,#00fff255 0%,transparent 25%);
+    
+    animation:auroraMove 18s linear infinite;
+    
+    filter:blur(90px);
+    
+    }
+    
+    @keyframes auroraMove{
+    
+    0%{transform:rotate(0deg);}
+    100%{transform:rotate(360deg);}
+    
+    }
+    .shooting{
+
+        position:absolute;
+        
+        width:120px;
+        
+        height:2px;
+        
+        background:white;
+        
+        box-shadow:0 0 10px white;
+        
+        transform:rotate(-35deg);
+        
+        animation:shoot 2s linear forwards;
+        
+        }
+        
+        @keyframes shoot{
+        
+        0%{
+        
+        opacity:1;
+        
+        transform:translate(0,0) rotate(-35deg);
+        
+        }
+        
+        100%{
+        
+        opacity:0;
+        
+        transform:translate(-900px,450px) rotate(-35deg);
+        
+        }
+        
+        }
+        .sparkle{
+
+            position:absolute;
+            
+            font-size:18px;
+            
+            pointer-events:none;
+            
+            animation:sparkle 2s linear forwards;
+            
+            }
+            
+            @keyframes sparkle{
+            
+            0%{
+            
+            opacity:1;
+            
+            transform:scale(.4);
+            
+            }
+            
+            100%{
+            
+            opacity:0;
+            
+            transform:translateY(-120px) scale(2);
+            
+            }
+            
+            }
+            .cursorHeart{
+
+                position:fixed;
+                
+                pointer-events:none;
+                
+                font-size:18px;
+                
+                animation:cursorFloat .8s linear forwards;
+                
+                }
+                
+                @keyframes cursorFloat{
+                
+                to{
+                
+                transform:translateY(-40px);
+                
+                opacity:0;
+                
+                }
+                
+                }
+                .lantern{
+
+                    position:absolute;
+                    
+                    font-size:28px;
+                    
+                    animation:lanternFloat 12s linear forwards;
+                    
+                    }
+                    
+                    @keyframes lanternFloat{
+                    
+                    to{
+                    
+                    transform:translateY(-120vh);
+                    
+                    opacity:0;
+                    
+                    }
+                    
+                    }
